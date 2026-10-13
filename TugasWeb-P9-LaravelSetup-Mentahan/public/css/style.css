@@ -1,0 +1,299 @@
+/* ==========================================================================
+   Tema "Kopi & Kayu" — dominan cokelat
+   Tata letak ala editor kode (titlebar bertab, explorer, status bar) dari
+   landing page Joses Sitohang, dengan palet warna cokelat.
+   Semua pasangan warna teks/latar sudah dicek kontrasnya >= 4.5:1 (WCAG AA).
+   ========================================================================== */
+
+/* ===== Tokens ===== */
+:root {
+  --bg: #231710;          /* espresso */
+  --bg-panel: #33231a;    /* kayu gelap */
+  --bg-panel-2: #2c1d15;  /* cokelat tua */
+  --text: #f4e8da;        /* krem */
+  --muted: #bfa58c;       /* cokelat susu */
+  --accent: #d4a373;      /* karamel */
+  --accent-2: #e0905a;    /* tembaga */
+  --border: #52392a;
+  --danger: #ff9f8f;
+  --font-display: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+a { color: var(--accent); }
+
+code {
+  font-family: var(--font-display);
+  background: var(--bg-panel-2);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  color: var(--accent-2);
+}
+
+/* ===== Titlebar / nav ===== */
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--bg-panel-2);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.25rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+.titlebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--accent);
+}
+.titlebar__brand a { color: inherit; text-decoration: none; }
+
+.titlebar__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-2);
+}
+
+.tabs { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+
+.tabs__item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px 6px 0 0;
+  border-bottom: 2px solid transparent;
+}
+
+.tabs__item:hover,
+.tabs__item:focus-visible,
+.tabs__item.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+  outline: none;
+}
+.tabs__item.is-active { background: var(--bg-panel); }
+
+.tabs__icon { color: var(--accent-2); font-size: 0.6rem; }
+
+.titlebar__menu {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 6px;
+}
+.titlebar__menu span { width: 22px; height: 2px; background: var(--text); }
+
+/* ===== Layout ===== */
+.workspace {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: calc(100vh - 110px);
+}
+
+.explorer {
+  background: var(--bg-panel-2);
+  border-right: 1px solid var(--border);
+  padding: 1.25rem 1rem;
+}
+
+.explorer__label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 1.25rem 0 0.5rem;
+}
+.explorer__label:first-child { margin-top: 0; }
+
+.explorer__tree, .explorer__list {
+  list-style: none;
+  padding-left: 0.5rem;
+  margin: 0;
+  font-size: 0.9rem;
+}
+.explorer__tree ul { list-style: none; padding-left: 1rem; margin-top: 0.4rem; }
+.explorer__tree li, .explorer__list li { margin-bottom: 0.5rem; color: var(--muted); }
+
+.explorer__badge {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 0.05rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.explorer__panel { margin-top: 1rem; }
+
+main { padding: 2rem clamp(1rem, 4vw, 3rem); max-width: 900px; }
+
+.panel { margin-bottom: 4rem; scroll-margin-top: 5rem; }
+
+.eyebrow {
+  font-family: var(--font-display);
+  color: var(--accent-2);
+  font-size: 0.85rem;
+  margin: 0 0 0.5rem;
+}
+
+h1, h2, h3 { font-family: var(--font-display); color: var(--text); }
+h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 1rem; }
+h2 { font-size: 1.6rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+h3 { font-size: 1.1rem; color: var(--accent); margin-top: 1.5rem; }
+
+.cursor { color: var(--accent); animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ===== Hero ===== */
+.hero__subtitle { color: var(--muted); max-width: 55ch; }
+
+.hero__avatar-figure { margin: 1.5rem 0; max-width: 200px; }
+.hero__avatar {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 24px;
+  display: block;
+  border: 2px solid var(--border);
+}
+.hero__avatar-figure figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; }
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  text-decoration: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+.btn--primary { background: var(--accent); color: var(--bg); font-weight: 700; }
+.btn--primary:hover { background: var(--accent-2); }
+.btn--primary:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+
+/* ===== Skills ===== */
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.tags { list-style: none; padding: 0; margin: 0.5rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tags li {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+/* ===== Projects / kartu ===== */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.project-card {
+  margin: 0;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+a.project-card { display: block; color: inherit; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+a.project-card:hover, a.project-card:focus-visible { border-color: var(--accent); transform: translateY(-3px); outline: none; }
+.project-card__thumb { width: 100%; display: block; }
+.project-card figcaption, .project-card .project-card__body { padding: 1rem; }
+.project-card h3 { margin-top: 0; font-size: 1rem; }
+.project-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 0; }
+
+/* ===== Tabel data dari database ===== */
+.table-wrap { overflow-x: auto; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 10px; margin-top: 1rem; }
+.table-wrap table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.table-wrap th, .table-wrap td { text-align: left; padding: 0.75rem 1rem; }
+.table-wrap th { font-family: var(--font-display); font-size: 0.78rem; color: var(--muted); border-bottom: 1px solid var(--border); }
+.table-wrap td { border-top: 1px solid var(--border); }
+.table-wrap tr:first-child td { border-top: 0; }
+.table-wrap .empty { text-align: center; color: var(--muted); padding: 1.5rem; }
+
+/* ===== Form ===== */
+.form { max-width: 480px; margin-top: 1.5rem; }
+.form__row { margin-bottom: 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+
+label { font-size: 0.85rem; color: var(--muted); }
+
+input, select, textarea {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+input.is-invalid, textarea.is-invalid { border-color: var(--danger); }
+input[type="date"] { color-scheme: dark; }
+
+.form__hint { font-size: 0.8rem; color: var(--danger); min-height: 1em; }
+.form__status { font-size: 0.9rem; color: var(--accent); }
+
+/* ===== Halaman /hello/{nama} ===== */
+.terminal { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; font-family: var(--font-display); }
+.terminal p { margin: 0.3rem 0; color: var(--muted); }
+.terminal strong { color: var(--accent); }
+
+/* ===== Status bar / footer ===== */
+.statusbar {
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.statusbar__left, .statusbar__right { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ===== Responsive ===== */
+@media (max-width: 780px) {
+  .workspace { grid-template-columns: 1fr; }
+  .explorer { display: none; }
+  .tabs { display: none; width: 100%; flex-direction: column; order: 3; }
+  .tabs.is-open { display: flex; }
+  .titlebar__menu { display: flex; }
+}
